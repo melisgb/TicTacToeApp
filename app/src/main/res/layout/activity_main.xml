@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3pt"
+        android:gravity="center|center_horizontal">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:background="@color/blocksColor"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3pt"
+        android:gravity="center|center_horizontal">
+
+        <Button
+            android:id="@+id/button4"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button6"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3pt"
+        android:gravity="center|center_horizontal">
+
+        <Button
+            android:id="@+id/button7"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button9"
+            android:background="@color/blocksColor"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_marginLeft="3pt"
+            android:onClick="onClickButton"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+    </TableRow>
+
+</TableLayout>
