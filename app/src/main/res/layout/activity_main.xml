@@ -11,6 +11,27 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="-50pt"
+        android:layout_marginRight="10pt"
+        android:layout_marginBottom="50pt"
+        android:gravity="right">
+
+        <ImageButton
+            android:id="@+id/refreshButton"
+            android:layout_width="61dp"
+            android:layout_height="25pt"
+            android:background="@color/blocksColor"
+            android:cropToPadding="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/actualizar_icon"
+            android:text="Button"
+            android:textColor="#FFFFFF"
+            android:tint="#FFFFFF" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="3pt"
         android:gravity="center|center_horizontal">
 

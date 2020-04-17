@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        refreshButton.setOnClickListener {
+            refreshButtons()
+        }
 
     }
 
@@ -122,12 +124,61 @@ class MainActivity : AppCompatActivity() {
 
 
         if(winner ==1){
-            Toast.makeText(this, "The winner is 1", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "The winner is 1", Toast.LENGTH_SHORT).show()
+            disableButtons()
         }
         else if (winner == 2){
-            Toast.makeText(this, "The winner is 2", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "The winner is 2", Toast.LENGTH_SHORT).show()
+            disableButtons()
         }
 
+    }
+
+    fun disableButtons(){
+        button1.isEnabled = false
+        button2.isEnabled = false
+        button3.isEnabled = false
+        button4.isEnabled = false
+        button5.isEnabled = false
+        button6.isEnabled = false
+        button7.isEnabled = false
+        button8.isEnabled = false
+        button9.isEnabled = false
+    }
+
+    fun refreshButtons(){
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
+        button5.text = ""
+        button6.text = ""
+        button7.text = ""
+        button8.text = ""
+        button9.text = ""
+
+        button1.isEnabled = true
+        button2.isEnabled = true
+        button3.isEnabled = true
+        button4.isEnabled = true
+        button5.isEnabled = true
+        button6.isEnabled = true
+        button7.isEnabled = true
+        button8.isEnabled = true
+        button9.isEnabled = true
+
+        button1.setBackgroundResource(R.color.blocksColor)
+        button2.setBackgroundResource(R.color.blocksColor)
+        button3.setBackgroundResource(R.color.blocksColor)
+        button4.setBackgroundResource(R.color.blocksColor)
+        button5.setBackgroundResource(R.color.blocksColor)
+        button6.setBackgroundResource(R.color.blocksColor)
+        button7.setBackgroundResource(R.color.blocksColor)
+        button8.setBackgroundResource(R.color.blocksColor)
+        button9.setBackgroundResource(R.color.blocksColor)
+        activePlayer = 1
+        player1Moves.clear()
+        player2Moves.clear()
     }
 
 }
