@@ -86,60 +86,30 @@ class MainActivity : AppCompatActivity() {
     fun checkWinner(){
         var winner = -1
         // row 1
-        if(player1Moves.containsAll(listOf(1,2,3))){
-            winner = 1
-        }
-        else if(player2Moves.containsAll(listOf(1,2,3))){
-            winner = 2
-        }
-        // row 2
-        else if(player1Moves.containsAll(listOf(4,5,6))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(4,5,6))){
-            winner = 2
-        }
-        // row 3
-        else if(player1Moves.containsAll(listOf(7,8,9))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(7,8,9))){
-            winner = 2
-        }
-        // col 1
-        else if(player1Moves.containsAll(listOf(1,4,7))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(1,4,7))){
-            winner = 2
-        }
-        // col 2
-        else if(player1Moves.containsAll(listOf(2,5,8))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(2,5,8))){
-            winner = 2
-        }
-        // col 3
-        else if(player1Moves.containsAll(listOf(3,6,9))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(3,6,9))){
-            winner = 2
-        }
-        // diag 1
-        else if(player1Moves.containsAll(listOf(1,5,9))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(1,5,9))){
-            winner = 2
-        }
-        // diag 2
-        else if(player1Moves.containsAll(listOf(3,5,7))){
-            winner = 1
-        }
-        else if (player2Moves.containsAll(listOf(3,5,7))){
-            winner = 2
+        when {
+            player1Moves.containsAll(listOf(1,2,3)) -> winner = 1
+            player2Moves.containsAll(listOf(1,2,3)) -> winner = 2
+            // row 2
+            player1Moves.containsAll(listOf(4,5,6)) -> winner = 1
+            player2Moves.containsAll(listOf(4,5,6)) -> winner = 2
+            // row 3
+            player1Moves.containsAll(listOf(7,8,9)) -> winner = 1
+            player2Moves.containsAll(listOf(7,8,9)) -> winner = 2
+            // col 1
+            player1Moves.containsAll(listOf(1,4,7)) -> winner = 1
+            player2Moves.containsAll(listOf(1,4,7)) -> winner = 2
+            // col 2
+            player1Moves.containsAll(listOf(2,5,8)) -> winner = 1
+            player2Moves.containsAll(listOf(2,5,8)) -> winner = 2
+            // col 3
+            player1Moves.containsAll(listOf(3,6,9)) -> winner = 1
+            player2Moves.containsAll(listOf(3,6,9)) -> winner = 2
+            // diag 1
+            player1Moves.containsAll(listOf(1,5,9)) -> winner = 1
+            player2Moves.containsAll(listOf(1,5,9)) -> winner = 2
+            // diag 2
+            player1Moves.containsAll(listOf(3,5,7)) -> winner = 1
+            player2Moves.containsAll(listOf(3,5,7)) -> winner = 2
         }
 
         if(winner ==1){
@@ -150,11 +120,10 @@ class MainActivity : AppCompatActivity() {
             resultTxtView.text = "Player2 is the Winner"
             disableButtons()
         }
-        else if(button1.text !="" && button2.text !="" && button3.text !="" && button4.text !="" && button5.text !="" && button6.text !="" && button7.text !="" && button8.text !="" && button9.text !=""){
+        else if(player1Moves.size + player2Moves.size == 9){
             resultTxtView.text = "Tie Game!"
             disableButtons()
         }
-
     }
 
     fun disableButtons(){
