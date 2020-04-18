@@ -20,6 +20,26 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun refreshButtons(){
+        val buttonsList : ArrayList<Button> = arrayListOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
+
+        for(button in buttonsList){
+            refreshActiveButton(button)
+        }
+
+        activePlayer = 1
+        player1Moves.clear()
+        player2Moves.clear()
+        resultTxtView.text = ""
+    }
+
+    fun refreshActiveButton(activeButton: Button){
+        activeButton.text = ""
+        activeButton.isEnabled = true
+        activeButton.setBackgroundResource(R.color.blocksColor)
+    }
+
+    // directly called from each button (xml)
     fun onClickButton(view: View){
         val buttonSelected = view as Button
         var blockId = 0
@@ -66,119 +86,84 @@ class MainActivity : AppCompatActivity() {
     fun checkWinner(){
         var winner = -1
         // row 1
-        if(player1Moves.contains(1)&& player1Moves.contains(2) && player1Moves.contains(3)){
+        if(player1Moves.containsAll(listOf(1,2,3))){
             winner = 1
         }
-        else if(player2Moves.contains(1)&& player2Moves.contains(2) && player2Moves.contains(3)){
+        else if(player2Moves.containsAll(listOf(1,2,3))){
             winner = 2
         }
         // row 2
-        else if(player1Moves.contains(4)&& player1Moves.contains(5) && player1Moves.contains(6)){
+        else if(player1Moves.containsAll(listOf(4,5,6))){
             winner = 1
         }
-        else if (player2Moves.contains(4)&& player2Moves.contains(5) && player2Moves.contains(6)){
+        else if (player2Moves.containsAll(listOf(4,5,6))){
             winner = 2
         }
         // row 3
-        else if(player1Moves.contains(7)&& player1Moves.contains(8) && player1Moves.contains(9)){
+        else if(player1Moves.containsAll(listOf(7,8,9))){
             winner = 1
         }
-        else if (player2Moves.contains(7)&& player2Moves.contains(8) && player2Moves.contains(9)){
+        else if (player2Moves.containsAll(listOf(7,8,9))){
             winner = 2
         }
         // col 1
-        else if(player1Moves.contains(1)&& player1Moves.contains(4) && player1Moves.contains(7)){
+        else if(player1Moves.containsAll(listOf(1,4,7))){
             winner = 1
         }
-        else if (player2Moves.contains(1)&& player2Moves.contains(4) && player2Moves.contains(7)){
+        else if (player2Moves.containsAll(listOf(1,4,7))){
             winner = 2
         }
         // col 2
-        else if(player1Moves.contains(2)&& player1Moves.contains(5) && player1Moves.contains(8)){
+        else if(player1Moves.containsAll(listOf(2,5,8))){
             winner = 1
         }
-        else if (player2Moves.contains(2)&& player2Moves.contains(5) && player2Moves.contains(8)){
+        else if (player2Moves.containsAll(listOf(2,5,8))){
             winner = 2
         }
         // col 3
-        else if(player1Moves.contains(3)&& player1Moves.contains(6) && player1Moves.contains(9)){
+        else if(player1Moves.containsAll(listOf(3,6,9))){
             winner = 1
         }
-        else if (player2Moves.contains(3)&& player2Moves.contains(6) && player2Moves.contains(9)){
+        else if (player2Moves.containsAll(listOf(3,6,9))){
             winner = 2
         }
         // diag 1
-        else if(player1Moves.contains(1)&& player1Moves.contains(5) && player1Moves.contains(9)){
+        else if(player1Moves.containsAll(listOf(1,5,9))){
             winner = 1
         }
-        else if (player2Moves.contains(1)&& player2Moves.contains(5) && player2Moves.contains(9)){
+        else if (player2Moves.containsAll(listOf(1,5,9))){
             winner = 2
         }
         // diag 2
-        else if(player1Moves.contains(3)&& player1Moves.contains(5) && player1Moves.contains(7)){
+        else if(player1Moves.containsAll(listOf(3,5,7))){
             winner = 1
         }
-        else if (player2Moves.contains(3)&& player2Moves.contains(5) && player2Moves.contains(7)){
+        else if (player2Moves.containsAll(listOf(3,5,7))){
             winner = 2
         }
 
-
         if(winner ==1){
-            Toast.makeText(this, "The winner is 1", Toast.LENGTH_SHORT).show()
+            resultTxtView.text = "Player1 is the Winner"
             disableButtons()
         }
         else if (winner == 2){
-            Toast.makeText(this, "The winner is 2", Toast.LENGTH_SHORT).show()
+            resultTxtView.text = "Player2 is the Winner"
+            disableButtons()
+        }
+        else if(button1.text !="" && button2.text !="" && button3.text !="" && button4.text !="" && button5.text !="" && button6.text !="" && button7.text !="" && button8.text !="" && button9.text !=""){
+            resultTxtView.text = "Tie Game!"
             disableButtons()
         }
 
     }
 
     fun disableButtons(){
-        button1.isEnabled = false
-        button2.isEnabled = false
-        button3.isEnabled = false
-        button4.isEnabled = false
-        button5.isEnabled = false
-        button6.isEnabled = false
-        button7.isEnabled = false
-        button8.isEnabled = false
-        button9.isEnabled = false
+        val buttonsList : ArrayList<Button> = arrayListOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
+
+        for(button in buttonsList){
+            button.isEnabled = false
+        }
     }
-
-    fun refreshButtons(){
-        button1.text = ""
-        button2.text = ""
-        button3.text = ""
-        button4.text = ""
-        button5.text = ""
-        button6.text = ""
-        button7.text = ""
-        button8.text = ""
-        button9.text = ""
-
-        button1.isEnabled = true
-        button2.isEnabled = true
-        button3.isEnabled = true
-        button4.isEnabled = true
-        button5.isEnabled = true
-        button6.isEnabled = true
-        button7.isEnabled = true
-        button8.isEnabled = true
-        button9.isEnabled = true
-
-        button1.setBackgroundResource(R.color.blocksColor)
-        button2.setBackgroundResource(R.color.blocksColor)
-        button3.setBackgroundResource(R.color.blocksColor)
-        button4.setBackgroundResource(R.color.blocksColor)
-        button5.setBackgroundResource(R.color.blocksColor)
-        button6.setBackgroundResource(R.color.blocksColor)
-        button7.setBackgroundResource(R.color.blocksColor)
-        button8.setBackgroundResource(R.color.blocksColor)
-        button9.setBackgroundResource(R.color.blocksColor)
-        activePlayer = 1
-        player1Moves.clear()
-        player2Moves.clear()
-    }
-
 }
+
+

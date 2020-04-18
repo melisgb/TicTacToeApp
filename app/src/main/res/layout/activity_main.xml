@@ -10,16 +10,16 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="126dp"
         android:layout_marginTop="-50pt"
-        android:layout_marginRight="10pt"
         android:layout_marginBottom="50pt"
-        android:gravity="right">
+        android:gravity="right"
+        android:paddingRight="22pt">
 
         <ImageButton
             android:id="@+id/refreshButton"
-            android:layout_width="61dp"
-            android:layout_height="25pt"
+            android:layout_width="wrap_content"
+            android:layout_height="30pt"
             android:background="@color/blocksColor"
             android:cropToPadding="false"
             android:scaleType="centerInside"
@@ -138,6 +138,24 @@
             android:onClick="onClickButton"
             android:textAlignment="center"
             android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20pt"
+        android:layout_marginBottom="-25pt">
+
+        <TextView
+            android:id="@+id/resultTxtView"
+            android:text=""
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </TableRow>
 
 </TableLayout>
