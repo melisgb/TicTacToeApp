@@ -13,17 +13,30 @@
         android:layout_height="126dp"
         android:layout_marginTop="-50pt"
         android:layout_marginBottom="50pt"
-        android:gravity="right"
-        android:paddingRight="22pt">
+        android:gravity="center_horizontal"
+        android:weightSum="0">
 
         <ImageButton
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
-            android:layout_height="30pt"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10pt"
             android:background="@color/blocksColor"
-            android:cropToPadding="false"
+            android:cropToPadding="true"
             android:scaleType="centerInside"
             android:src="@drawable/actualizar_icon"
+            android:text="Button"
+            android:textColor="#FFFFFF"
+            android:tint="#FFFFFF" />
+        <ImageButton
+            android:id="@+id/newGameButton"
+            android:layout_width="30pt"
+            android:layout_height="30pt"
+            android:layout_marginLeft="10pt"
+            android:background="@color/blocksColor"
+            android:cropToPadding="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/nuevapartida_icon"
             android:text="Button"
             android:textColor="#FFFFFF"
             android:tint="#FFFFFF" />

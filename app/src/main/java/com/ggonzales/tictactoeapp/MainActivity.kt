@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,25 +16,43 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         refreshButton.setOnClickListener {
-            refreshButtons()
+            resetButtons()
+        }
+        newGameButton.setOnClickListener {
+            startNewGame()
         }
 
     }
-
-    fun refreshButtons(){
+    fun startNewGame(){
         val buttonsList : ArrayList<Button> = arrayListOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
 
         for(button in buttonsList){
-            refreshActiveButton(button)
+            resetActiveButton(button)
         }
 
         activePlayer = 1
         player1Moves.clear()
         player2Moves.clear()
+//        resultTxtView.text = ""
+    }
+
+
+    fun resetButtons(){
+        val buttonsList : ArrayList<Button> = arrayListOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
+
+        for(button in buttonsList){
+            resetActiveButton(button)
+        }
+
+        activePlayer = 1
+        player1Moves.clear()
+        player2Moves.clear()
+        player1Wins = 0
+        player2Wins = 0
         resultTxtView.text = ""
     }
 
-    fun refreshActiveButton(activeButton: Button){
+    fun resetActiveButton(activeButton: Button){
         activeButton.text = ""
         activeButton.isEnabled = true
         activeButton.setBackgroundResource(R.color.blocksColor)
@@ -59,9 +78,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     var activePlayer = 1 //To identify which player's turn it is
+    var winner = -1
     var player1Moves = ArrayList<Int>()
     var player2Moves = ArrayList<Int>()
-
+    var player1Wins = 0
+    var player2Wins = 0
 
     fun playGame(blockId : Int, buttonSelected : Button){
         if(activePlayer == 1){
@@ -70,6 +91,8 @@ class MainActivity : AppCompatActivity() {
             buttonSelected.setBackgroundResource(R.color.backgroundPlayer1)
             player1Moves.add(blockId)
             activePlayer = 2
+            checkWinner()
+            if(winner == -1) autoPlay()
 
         }
         else{
@@ -78,13 +101,13 @@ class MainActivity : AppCompatActivity() {
             buttonSelected.setBackgroundResource(R.color.backgroundPlayer2)
             player2Moves.add(blockId)
             activePlayer = 1
+            checkWinner()
         }
         buttonSelected.isEnabled = false
-
-        checkWinner()
     }
+
     fun checkWinner(){
-        var winner = -1
+        winner = -1
         // row 1
         when {
             player1Moves.containsAll(listOf(1,2,3)) -> winner = 1
@@ -111,26 +134,60 @@ class MainActivity : AppCompatActivity() {
             player1Moves.containsAll(listOf(3,5,7)) -> winner = 1
             player2Moves.containsAll(listOf(3,5,7)) -> winner = 2
         }
-
         if(winner ==1){
-            resultTxtView.text = "Player1 is the Winner"
+            Toast.makeText(this, "Player1 is the Winner!", Toast.LENGTH_SHORT).show()
+            player1Wins += 1
+            resultTxtView.text = "PlayerA: $player1Wins - Auto: $player2Wins"
             disableButtons()
         }
         else if (winner == 2){
-            resultTxtView.text = "Player2 is the Winner"
+            Toast.makeText(this, "Player2 is the Winner!", Toast.LENGTH_SHORT).show()
+            player2Wins += 1
+            resultTxtView.text = "PlayerA: $player1Wins - Auto: $player2Wins"
             disableButtons()
         }
         else if(player1Moves.size + player2Moves.size == 9){
-            resultTxtView.text = "Tie Game!"
+            Toast.makeText(this, "Tie Game!", Toast.LENGTH_SHORT).show()
+            resultTxtView.text = "PlayerA: $player1Wins - Auto: $player2Wins"
             disableButtons()
         }
+
     }
 
-    fun disableButtons(){
+    fun disableButtons() {
         val buttonsList : ArrayList<Button> = arrayListOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
 
         for(button in buttonsList){
             button.isEnabled = false
+        }
+    }
+
+    fun autoPlay() {
+        val emptyblocksList = ArrayList<Int>()
+        for(x in 1..9){
+            if(!(player1Moves.contains(x) || player2Moves.contains(x))){
+                emptyblocksList.add(x)
+            }
+        }
+
+        if(emptyblocksList.size > 0){
+            val r = Random
+            val randInx = r.nextInt(emptyblocksList.size)
+            val autoSelID = emptyblocksList[randInx]
+            var autoSelBtn : Button? = null
+            when(autoSelID){
+                1 -> autoSelBtn = button1
+                2 -> autoSelBtn = button2
+                3 -> autoSelBtn = button3
+                4 -> autoSelBtn = button4
+                5 -> autoSelBtn = button5
+                6 -> autoSelBtn = button6
+                7 -> autoSelBtn = button7
+                8 -> autoSelBtn = button8
+                9 -> autoSelBtn = button9
+            }
+            playGame(autoSelID, autoSelBtn!!)
+
         }
     }
 }
