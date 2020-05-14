@@ -34,8 +34,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("Firebase Log", "Login successful")
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                     val user = mAuth!!.currentUser
-                    //save into FirebaseDB
-                    myRef.child("users").child(user!!.uid).setValue(user!!.email)
+                    //save into FirebaseDB. It will save the username as index and the userID as value.
+                    myRef.child("users").child(splitEmail(user!!.email!!)).setValue(user!!.uid)
                     loadMainActiv(user!!)
                 }
                 else {
@@ -60,5 +60,10 @@ class LoginActivity : AppCompatActivity() {
             loadMainActiv(user)
         }
 
+    }
+
+    fun splitEmail(email: String) : String {
+        val username = email.split("@")
+        return username[0]
     }
 }
