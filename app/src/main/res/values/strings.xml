@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TicTacToeApp</string>
+    <string name="signin">SIGN IN</string>
 </resources>
