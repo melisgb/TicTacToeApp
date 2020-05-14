@@ -34,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("Firebase Log", "Login successful")
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                     val user = mAuth!!.currentUser
+                    //save into FirebaseDB
+                    myRef.child("users").child(user!!.uid).setValue(user!!.email)
                     loadMainActiv(user!!)
                 }
                 else {
@@ -43,8 +45,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     fun loadMainActiv(currentUser : FirebaseUser){
-        //save into FirebaseDB
-        myRef.child("users").child(currentUser.uid).setValue(currentUser.email)
+
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.putExtra("Email", currentUser.email)
         intent.putExtra("UserID", currentUser.uid)
