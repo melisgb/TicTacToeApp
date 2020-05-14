@@ -7,11 +7,15 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.login.*
 
 class LoginActivity : AppCompatActivity() {
-
+    //Authentication
     private var mAuth : FirebaseAuth? = null
+    //DB
+    private var database = FirebaseDatabase.getInstance()
+    private var myRef = database.reference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
@@ -39,10 +43,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     fun loadMainActiv(currentUser : FirebaseUser){
+        //save into FirebaseDB
+        myRef.child("users").child(currentUser.uid).setValue(currentUser.email)
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.putExtra("Email", currentUser.email)
         intent.putExtra("UserID", currentUser.uid)
         startActivity(intent)
+
     }
 
     override fun onStart() {
