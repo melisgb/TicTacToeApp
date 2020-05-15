@@ -194,6 +194,17 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    //buttons Function
+    protected fun requestFromPlayer(view: View){
+        val secPlayerEmail = nameEText.text.toString()
+    }
+    protected fun acceptPlayer(view: View){
+        val secPlayerEmail = nameEText.text.toString()
+
+    }
+
+
 }
 
 

@@ -2,9 +2,11 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#137DE6</color>
+    <color name="colorAccent2">#003366</color>
     <color name="backgroundColor">#E6CCFF</color>
     <color name="blocksColor">#553D67</color>
     <color name="backgroundPlayer1">#F64C72</color>
     <color name="backgroundPlayer2">#557A95</color>
+    <color name="white">#FFFFFF</color>
 </resources>

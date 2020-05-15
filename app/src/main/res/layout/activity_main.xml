@@ -1,174 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    android:gravity="center"
-    tools:context=".MainActivity">
+    android:gravity="center">
 
-    <TableRow
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="126dp"
-        android:layout_marginTop="-50pt"
-        android:layout_marginBottom="50pt"
-        android:gravity="center_horizontal"
-        android:weightSum="0">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-        <ImageButton
-            android:id="@+id/refreshButton"
+        <EditText
+            android:id="@+id/nameEText"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10pt"
-            android:background="@color/blocksColor"
-            android:cropToPadding="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/actualizar_icon"
-            android:text="Button"
-            android:textColor="#FFFFFF"
-            android:tint="#FFFFFF" />
-        <ImageButton
-            android:id="@+id/newGameButton"
-            android:layout_width="30pt"
-            android:layout_height="30pt"
-            android:layout_marginLeft="10pt"
-            android:background="@color/blocksColor"
-            android:cropToPadding="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/nuevapartida_icon"
-            android:text="Button"
-            android:textColor="#FFFFFF"
-            android:tint="#FFFFFF" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3pt"
-        android:gravity="center|center_horizontal">
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:background="@color/blocksColor"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button2"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button3"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3pt"
-        android:gravity="center|center_horizontal">
-
-        <Button
-            android:id="@+id/button4"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button5"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button6"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3pt"
-        android:gravity="center|center_horizontal">
-
-        <Button
-            android:id="@+id/button7"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button8"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button9"
-            android:background="@color/blocksColor"
-            android:layout_width="40pt"
-            android:layout_height="40pt"
-            android:layout_marginLeft="3pt"
-            android:onClick="onClickButton"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20pt"
-        android:layout_marginBottom="-25pt">
-
-        <TextView
-            android:id="@+id/resultTxtView"
-            android:text=""
-            android:layout_width="0pt"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </TableRow>
+            android:ems="10"
+            android:hint="@string/players_email"
+            android:inputType="textPersonName" />
 
-</TableLayout>
+        <Button
+            android:id="@+id/acceptButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:onClick="acceptPlayer"
+            android:text="@string/accept"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/requestButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="requestFromPlayer"
+            android:textColor="@color/white"
+            android:background="@color/colorAccent2"
+            android:text="@string/request" />
+    </LinearLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:gravity="center"
+        tools:context=".MainActivity">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="126dp"
+            android:layout_marginTop="-50pt"
+            android:layout_marginBottom="50pt"
+            android:gravity="center_horizontal"
+            android:weightSum="0">
+
+            <ImageButton
+                android:id="@+id/refreshButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10pt"
+                android:background="@color/blocksColor"
+                android:cropToPadding="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/actualizar_icon"
+                android:text="Button"
+                android:textColor="#FFFFFF"
+                android:tint="#FFFFFF" />
+            <ImageButton
+                android:id="@+id/newGameButton"
+                android:layout_width="30pt"
+                android:layout_height="30pt"
+                android:layout_marginLeft="10pt"
+                android:background="@color/blocksColor"
+                android:cropToPadding="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/nuevapartida_icon"
+                android:text="Button"
+                android:textColor="#FFFFFF"
+                android:tint="#FFFFFF" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3pt"
+            android:gravity="center|center_horizontal">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:background="@color/blocksColor"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button3"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3pt"
+            android:gravity="center|center_horizontal">
+
+            <Button
+                android:id="@+id/button4"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button6"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3pt"
+            android:gravity="center|center_horizontal">
+
+            <Button
+                android:id="@+id/button7"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button8"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button9"
+                android:background="@color/blocksColor"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_marginLeft="3pt"
+                android:onClick="onClickButton"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20pt"
+            android:layout_marginBottom="-25pt">
+
+            <TextView
+                android:id="@+id/resultTxtView"
+                android:text=""
+                android:layout_width="0pt"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

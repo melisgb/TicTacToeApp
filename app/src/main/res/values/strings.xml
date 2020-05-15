@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TicTacToeApp</string>
     <string name="signin">SIGN IN</string>
+    <string name="accept">Accept</string>
+    <string name="request">Request</string>
+    <string name="players_email">Player\'s Email</string>
 </resources>
