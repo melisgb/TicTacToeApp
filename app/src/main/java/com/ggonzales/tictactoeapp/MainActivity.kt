@@ -10,20 +10,36 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
 
     private var mFirebaseAnalytics : FirebaseAnalytics? = null
+    //DB
+    private var database = FirebaseDatabase.getInstance()
+    private var myRef = database.reference
+    var myEmail : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
+        var bundle : Bundle = intent.extras!!
+        myEmail = bundle.getString("Email")
+        currUserTxtView.text = myEmail
 
         refreshButton.setOnClickListener {
             resetButtons()
         }
         newGameButton.setOnClickListener {
             startNewGame()
+        }
+        requestButton.setOnClickListener {
+            requestFromPlayer()
+        }
+        acceptButton.setOnClickListener {
+            acceptPlayer()
         }
 
     }
@@ -196,11 +212,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     //buttons Function
-    protected fun requestFromPlayer(view: View){
+    protected fun requestFromPlayer(){
         val secPlayerEmail = nameEText.text.toString()
+        myRef.child("Users").child(secPlayerEmail).child("Request").push().setValue(myEmail)
+
+
     }
-    protected fun acceptPlayer(view: View){
+    protected fun acceptPlayer(){
         val secPlayerEmail = nameEText.text.toString()
+        myRef.child("Users").child(secPlayerEmail).child("Request").push().setValue(myEmail)
 
     }
 
