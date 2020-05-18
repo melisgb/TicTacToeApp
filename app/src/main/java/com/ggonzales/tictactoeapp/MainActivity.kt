@@ -9,8 +9,12 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.login.*
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         var bundle : Bundle = intent.extras!!
         myEmail = bundle.getString("Email")
         currUserTxtView.text = myEmail
+        getIncomingRequests()
 
         refreshButton.setOnClickListener {
             resetButtons()
@@ -55,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         player2Moves.clear()
 //        resultTxtView.text = ""
     }
-
 
     fun resetButtons(){
         val buttonsList : ArrayList<Button> = arrayListOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
@@ -220,8 +224,44 @@ class MainActivity : AppCompatActivity() {
     }
     protected fun acceptPlayer(){
         val secPlayerEmail = nameEText.text.toString()
-        myRef.child("Users").child(secPlayerEmail).child("Request").push().setValue(myEmail)
+        myRef.child("Users").child(splitEmail(secPlayerEmail)).child("Request").push().setValue(myEmail)
+        Toast.makeText(applicationContext, "Invitation Accepted", Toast.LENGTH_SHORT).show()
 
+    }
+
+    fun getIncomingRequests(){
+
+        val changeListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try{
+                    val datasnap : HashMap<String, Any> = snapshot.value as HashMap<String, Any>
+                    if(datasnap!=null){
+                        var invitingPlayer : String
+                        for(key in datasnap.keys){
+                            invitingPlayer = datasnap[key] as String
+                            nameEText.setText(invitingPlayer)
+                            myRef.child("Users").child(splitEmail(myEmail!!)).child("Request").setValue(true)
+                            break
+                        }
+                    }
+                }
+                catch (ex: Exception){
+                    Log.d("Exception INCOM REQUEST", ex.message)
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("Exception-Change canc", p0.toException().toString())
+            }
+
+        }
+        myRef.child("Users").child(splitEmail(myEmail!!)).child("Request").addValueEventListener(changeListener)
+
+
+    }
+    fun splitEmail(email: String) : String {
+        val username = email.split("@")
+        return username[0]
     }
 
 

@@ -42,7 +42,8 @@ class LoginActivity : AppCompatActivity() {
                     loadMainActiv(user!!)
                 }
                 else {
-                    Log.d("Firebase Log", "Login failed")
+                    //Login failed
+                    Log.d("onComplete: Failed = " + task.getException()!!.message,"");
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
                 }
         }
