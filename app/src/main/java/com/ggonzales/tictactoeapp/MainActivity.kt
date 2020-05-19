@@ -230,7 +230,6 @@ class MainActivity : AppCompatActivity() {
                     try{
                         player1Moves.clear()
                         player2Moves.clear()
-                        Log.d("SET MATCH","Entro a Linea 234  ${snapshot.getValue().toString()}")
                         var datasnap=snapshot.getValue(object: GenericTypeIndicator<HashMap<String, Any>>() { })
                             Log.d("SET MATCH","Entro a Linea 235")
                         if (datasnap != null) {
