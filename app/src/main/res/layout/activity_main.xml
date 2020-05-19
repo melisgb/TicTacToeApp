@@ -5,15 +5,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
-    android:gravity="center">
+    android:background="@color/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:weightSum="3">
 
         <EditText
             android:id="@+id/nameEText"
@@ -47,43 +47,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundColor"
-        android:gravity="center"
         tools:context=".MainActivity">
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="126dp"
-            android:layout_marginTop="-50pt"
-            android:layout_marginBottom="50pt"
-            android:gravity="center_horizontal"
-            android:weightSum="0">
+            android:layout_marginTop="20pt"
+            android:layout_marginBottom="30pt"
+            android:gravity="center_horizontal">
 
             <ImageButton
                 android:id="@+id/refreshButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10pt"
+                android:layout_marginStart="10pt"
                 android:background="@color/blocksColor"
                 android:cropToPadding="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/actualizar_icon"
-                android:text="Button"
                 android:textColor="#FFFFFF"
                 android:tint="#FFFFFF" />
             <ImageButton
                 android:id="@+id/newGameButton"
                 android:layout_width="30pt"
                 android:layout_height="30pt"
-                android:layout_marginLeft="10pt"
+                android:layout_marginStart="10pt"
                 android:background="@color/blocksColor"
                 android:cropToPadding="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/nuevapartida_icon"
-                android:text="Button"
                 android:textColor="#FFFFFF"
                 android:tint="#FFFFFF" />
-        </TableRow>
 
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -199,13 +194,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20pt"
-            android:layout_marginBottom="-25pt">
+            android:gravity="center|center_horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/resultTxtView"
                 android:text=""
-                android:layout_width="0pt"
                 android:layout_weight="1"
+                android:layout_width="0pt"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark"
@@ -213,18 +209,22 @@
                 android:textStyle="bold" />
 
         </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:layout_marginBottom="10pt"
+            android:gravity="center|center_horizontal"
+            android:weightSum="1">
 
-            <TextView
-                android:id="@+id/currUserTxtView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+        <TextView
+            android:id="@+id/currUserTxtView"
+            android:layout_width="0pt"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
+            android:layout_weight="1" />
         </TableRow>
-
     </TableLayout>
 
 </LinearLayout>

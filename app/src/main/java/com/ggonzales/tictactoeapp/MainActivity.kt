@@ -7,13 +7,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.random.Random
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.login.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -116,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             player1Moves.add(blockId)
             activePlayer = 2
             checkWinner()
-            if(winner == -1) autoPlay()
+//            if(winner == -1) onlinePlay()
 
         }
         else{
@@ -186,47 +184,76 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun autoPlay() {
-        val emptyblocksList = ArrayList<Int>()
-        for(x in 1..9){
-            if(!(player1Moves.contains(x) || player2Moves.contains(x))){
-                emptyblocksList.add(x)
-            }
+    fun onlinePlay(autoSelID : Int) {
+        var autoSelBtn : Button? = null
+        when(autoSelID){
+            1 -> autoSelBtn = button1
+            2 -> autoSelBtn = button2
+            3 -> autoSelBtn = button3
+            4 -> autoSelBtn = button4
+            5 -> autoSelBtn = button5
+            6 -> autoSelBtn = button6
+            7 -> autoSelBtn = button7
+            8 -> autoSelBtn = button8
+            9 -> autoSelBtn = button9
         }
+//            playGame(autoSelID, autoSelBtn!!)
+        myRef.child("PlayOnline").child(sessionID!!).child(autoSelID.toString()).setValue(myEmail)
 
-        if(emptyblocksList.size > 0){
-            val r = Random
-            val randInx = r.nextInt(emptyblocksList.size)
-            val autoSelID = emptyblocksList[randInx]
-            var autoSelBtn : Button? = null
-            when(autoSelID){
-                1 -> autoSelBtn = button1
-                2 -> autoSelBtn = button2
-                3 -> autoSelBtn = button3
-                4 -> autoSelBtn = button4
-                5 -> autoSelBtn = button5
-                6 -> autoSelBtn = button6
-                7 -> autoSelBtn = button7
-                8 -> autoSelBtn = button8
-                9 -> autoSelBtn = button9
-            }
-            playGame(autoSelID, autoSelBtn!!)
-
-        }
     }
 
     //buttons Function
     protected fun requestFromPlayer(){
+        //it receives the username only
         val secPlayerEmail = nameEText.text.toString()
         myRef.child("Users").child(secPlayerEmail).child("Request").push().setValue(myEmail)
-
+        setMatch(splitEmail(myEmail!!)+splitEmail(secPlayerEmail))
+        playerSymbol = "X"
 
     }
     protected fun acceptPlayer(){
         val secPlayerEmail = nameEText.text.toString()
+        //since the whole email is displayed, we have to use split
         myRef.child("Users").child(splitEmail(secPlayerEmail)).child("Request").push().setValue(myEmail)
         Toast.makeText(applicationContext, "Invitation Accepted", Toast.LENGTH_SHORT).show()
+        setMatch(splitEmail(secPlayerEmail)+splitEmail(myEmail!!))
+        playerSymbol = "0"
+    }
+    var sessionID : String? = null
+    var playerSymbol : String? = null
+    fun setMatch(sessionID : String){
+        this.sessionID = sessionID
+        myRef.child("PlayOnline").child(sessionID)
+            .addValueEventListener(object:ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    try{
+                        player1Moves.clear()
+                        player2Moves.clear()
+                        val datasnap=dataSnapshot!!.value as HashMap<String,Any>
+                        if(datasnap!=null){
 
+                            var value:String
+                            for (key in datasnap.keys){
+                                value= datasnap[key] as String
+
+                                if(value!= myEmail){
+                                    activePlayer= if(playerSymbol==="X") 1 else 2
+                                }else{
+                                    activePlayer= if(playerSymbol==="X") 2 else 1
+                                }
+                                onlinePlay(key.toInt())
+                            }
+                        }
+                    }catch (ex:Exception){
+                        Log.d("Exception-Data Changed", "Saving PlayOnline $ex.message")
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("Exception-Change Canc", p0.toException().toString())
+                }
+
+            })
     }
 
     fun getIncomingRequests(){
