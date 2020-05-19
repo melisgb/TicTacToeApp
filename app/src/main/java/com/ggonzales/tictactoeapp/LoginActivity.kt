@@ -9,6 +9,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.login.*
+import java.lang.Exception
+import java.lang.reflect.Executable
+import kotlin.concurrent.timerTask
 
 class LoginActivity : AppCompatActivity() {
     //Authentication
@@ -33,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
     fun loginToFireBase( email: String, pass : String){
         mAuth!!.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {task ->
                 if(task.isSuccessful){
-                    Log.d("Firebase Log", "Login successful")
+                    Log.d("Firebase Login", "Login successful")
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                     val user = mAuth!!.currentUser
                     //save into FirebaseDB. It will save the username as index and the userID as value.
@@ -43,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else {
                     //Login failed
-                    Log.d("onComplete: Failed = " + task.getException()!!.message,"");
+                    Log.d("Firebase Login Except","${task.getException()!!.message}")
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
                 }
         }

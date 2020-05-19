@@ -8,10 +8,7 @@ import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -95,8 +92,9 @@ class MainActivity : AppCompatActivity() {
             R.id.button8 -> blockId = 8
             R.id.button9 -> blockId = 9
         }
-        Log.d("App Clicks", "${buttonSelected.id.toString()} : $blockId")
-        playGame(blockId, buttonSelected)
+        Log.d("App Clicks", "${blockId}")
+//        playGame(blockId, buttonSelected)
+        myRef.child("PlayOnline").child(sessionID!!).child(blockId.toString()).setValue(myEmail)
     }
 
     var activePlayer = 1 //To identify which player's turn it is
@@ -197,8 +195,7 @@ class MainActivity : AppCompatActivity() {
             8 -> autoSelBtn = button8
             9 -> autoSelBtn = button9
         }
-//            playGame(autoSelID, autoSelBtn!!)
-        myRef.child("PlayOnline").child(sessionID!!).child(autoSelID.toString()).setValue(myEmail)
+            playGame(autoSelID, autoSelBtn!!)
 
     }
 
@@ -218,20 +215,25 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "Invitation Accepted", Toast.LENGTH_SHORT).show()
         setMatch(splitEmail(secPlayerEmail)+splitEmail(myEmail!!))
         playerSymbol = "0"
+        nameEText.isEnabled = false
     }
     var sessionID : String? = null
     var playerSymbol : String? = null
+
     fun setMatch(sessionID : String){
         this.sessionID = sessionID
+        myRef.child("PlayOnline").removeValue()
+//        myRef.child("PlayOnline").child(sessionID).child("Request").setValue(1234)
         myRef.child("PlayOnline").child(sessionID)
             .addValueEventListener(object:ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                override fun onDataChange(snapshot: DataSnapshot) {
                     try{
                         player1Moves.clear()
                         player2Moves.clear()
-                        val datasnap=dataSnapshot!!.value as HashMap<String,Any>
-                        if(datasnap!=null){
-
+                        Log.d("SET MATCH","Entro a Linea 234  ${snapshot.getValue().toString()}")
+                        var datasnap=snapshot.getValue(object: GenericTypeIndicator<HashMap<String, Any>>() { })
+                            Log.d("SET MATCH","Entro a Linea 235")
+                        if (datasnap != null) {
                             var value:String
                             for (key in datasnap.keys){
                                 value= datasnap[key] as String
@@ -245,46 +247,43 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }catch (ex:Exception){
-                        Log.d("Exception-Data Changed", "Saving PlayOnline $ex.message")
+                        Log.e("Exception-Data Changed", "Saving PlayOnline", ex)
                     }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("Exception-Change Canc", p0.toException().toString())
+                    Log.d("Match Cancelled", p0.toException().toString())
                 }
 
             })
     }
 
     fun getIncomingRequests(){
+        myRef.child("Users").child(splitEmail(myEmail!!)).child("Request")
+            .addValueEventListener(object:ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    try{
+                        var datasnap=snapshot.value as HashMap<String, Any>
+                        Log.d("SET MATCH","Entro a Linea 268")
+                        if(!datasnap.isEmpty()){
+                            var invitingPlayer : String
+                            for(key in datasnap.keys){
+                                Log.d("Result invitingPlayer", datasnap[key].toString())
+                                invitingPlayer = datasnap[key] as String
+                                nameEText.setText(invitingPlayer)
 
-        val changeListener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                try{
-                    val datasnap : HashMap<String, Any> = snapshot.value as HashMap<String, Any>
-                    if(datasnap!=null){
-                        var invitingPlayer : String
-                        for(key in datasnap.keys){
-                            invitingPlayer = datasnap[key] as String
-                            nameEText.setText(invitingPlayer)
-                            myRef.child("Users").child(splitEmail(myEmail!!)).child("Request").setValue(true)
-                            break
+                            }
                         }
+                    }catch (ex: Exception){
+                        Log.d("Exception IncomRequest", ex.message)
                     }
                 }
-                catch (ex: Exception){
-                    Log.d("Exception INCOM REQUEST", ex.message)
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("Request Cancelled", p0.toException().toString())
                 }
-            }
 
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("Exception-Change canc", p0.toException().toString())
-            }
-
-        }
-        myRef.child("Users").child(splitEmail(myEmail!!)).child("Request").addValueEventListener(changeListener)
-
-
+            })
     }
     fun splitEmail(email: String) : String {
         val username = email.split("@")
