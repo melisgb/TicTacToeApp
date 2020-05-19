@@ -268,9 +268,11 @@ class MainActivity : AppCompatActivity() {
                                 Log.d("Result invitingPlayer", datasnap[key].toString())
                                 invitingPlayer = datasnap[key] as String
                                 nameEText.setText(invitingPlayer)
+
                                 var notifyCurrPlayer = Notification()
                                 notifyCurrPlayer!!.notifyRequests(applicationContext, invitingPlayer + " wants to play TicTacToe", number)
                                 number++
+                                break
                             }
                         }
                     }catch (ex: Exception){

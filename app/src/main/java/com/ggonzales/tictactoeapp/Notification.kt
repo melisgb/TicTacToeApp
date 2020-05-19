@@ -15,11 +15,15 @@ import androidx.core.app.NotificationManagerCompat
 class Notification(){
     val NOTIFICATION_TAG = "New request"
     fun notifyRequests(context: Context, message : String, number : Int){
+        // Create the NotificationChannel
+        val mChannel = NotificationChannel("MELISSA_CHANNEL", "melissa", NotificationManager.IMPORTANCE_HIGH)
+        mChannel.description = "melissas channel"
+
+
         val intent = Intent(context, LoginActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        var builder = NotificationCompat.Builder(context, "CHANNEL_ID")
-            .setDefaults(Notification.DEFAULT_ALL)
+        var builder = NotificationCompat.Builder(context, "MELISSA_CHANNEL")
             .setSmallIcon(R.drawable.tictactoe_icon2)
             .setContentTitle("Game invitation")
             .setContentText(message)
@@ -27,7 +31,11 @@ class Notification(){
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
+        Toast.makeText(context, "Notification was sent", Toast.LENGTH_SHORT).show()
         val notManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        notManager.createNotificationChannel(mChannel)
         notManager.notify(NOTIFICATION_TAG, 0, builder.build())
 
         Log.d("Notification sent", "Notification was sent")
