@@ -31,10 +31,8 @@ class Notification(){
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        Toast.makeText(context, "Notification was sent", Toast.LENGTH_SHORT).show()
         val notManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
         notManager.createNotificationChannel(mChannel)
         notManager.notify(NOTIFICATION_TAG, 0, builder.build())
 
