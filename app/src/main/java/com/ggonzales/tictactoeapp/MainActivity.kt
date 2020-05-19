@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
         Log.d("App Clicks", "${blockId}")
 //        playGame(blockId, buttonSelected)
-        myRef.child("PlayOnline").child(sessionID!!).child(blockId.toString()).setValue(myEmail)
+        myRef.child("PlayOnline").child(sessionID!!).child("cell-$blockId").setValue(myEmail)
     }
 
     var activePlayer = 1 //To identify which player's turn it is
@@ -202,7 +202,7 @@ class MainActivity : AppCompatActivity() {
     //buttons Function
     protected fun requestFromPlayer(){
         //it receives the username only
-        val secPlayerEmail = nameEText.text.toString()
+        val secPlayerEmail = nameEText.text.toString().replace("@gmail.com","")
         myRef.child("Users").child(secPlayerEmail).child("Request").push().setValue(myEmail)
         setMatch(splitEmail(myEmail!!)+splitEmail(secPlayerEmail))
         playerSymbol = "X"
@@ -223,7 +223,6 @@ class MainActivity : AppCompatActivity() {
     fun setMatch(sessionID : String){
         this.sessionID = sessionID
         myRef.child("PlayOnline").removeValue()
-//        myRef.child("PlayOnline").child(sessionID).child("Request").setValue(1234)
         myRef.child("PlayOnline").child(sessionID)
             .addValueEventListener(object:ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -231,7 +230,6 @@ class MainActivity : AppCompatActivity() {
                         player1Moves.clear()
                         player2Moves.clear()
                         var datasnap=snapshot.getValue(object: GenericTypeIndicator<HashMap<String, Any>>() { })
-                            Log.d("SET MATCH","Entro a Linea 235")
                         if (datasnap != null) {
                             var value:String
                             for (key in datasnap.keys){
@@ -242,7 +240,7 @@ class MainActivity : AppCompatActivity() {
                                 }else{
                                     activePlayer= if(playerSymbol==="X") 2 else 1
                                 }
-                                onlinePlay(key.toInt())
+                                onlinePlay(key.replace("cell-", "").toInt())
                             }
                         }
                     }catch (ex:Exception){
@@ -257,24 +255,26 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    var number = 0
     fun getIncomingRequests(){
         myRef.child("Users").child(splitEmail(myEmail!!)).child("Request")
             .addValueEventListener(object:ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     try{
-                        var datasnap=snapshot.value as HashMap<String, Any>
-                        Log.d("SET MATCH","Entro a Linea 268")
-                        if(!datasnap.isEmpty()){
+                        var datasnap=snapshot.getValue(object: GenericTypeIndicator<HashMap<String, Any>>() { })
+                        if(datasnap != null){
                             var invitingPlayer : String
                             for(key in datasnap.keys){
                                 Log.d("Result invitingPlayer", datasnap[key].toString())
                                 invitingPlayer = datasnap[key] as String
                                 nameEText.setText(invitingPlayer)
-
+                                var notifyCurrPlayer = Notification()
+                                notifyCurrPlayer!!.notifyRequests(applicationContext, invitingPlayer + " wants to play TicTacToe", number)
+                                number++
                             }
                         }
                     }catch (ex: Exception){
-                        Log.d("Exception IncomRequest", ex.message)
+                        Log.e("Exception IncomRequest", ex.message, ex)
                     }
                 }
 
